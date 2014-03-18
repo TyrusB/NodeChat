@@ -3,8 +3,41 @@
   <head>
     <title>Chat App Home</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./javascripts/chat.js"></script>
+    <script src="./javascripts/chat_ui.js"></script>
   </head>
   <body>
-    <div>Hello World</div>
+    <h1>Chat App</h1>
+    <br>
+    <div id='chat-container'>
+      <ul id='message-display'></ul>
+    </div>
+    <br>
+    <form id='chat-form'>
+      <label>Type message:
+        <input type='text' id='chat-message'>
+      </label>
+    </form>
   </body>
 </html>
+
+<style>
+#chat-container {
+  width: 50%;
+  height: 200px;
+  overflow-y: scroll;
+  background-color:white;
+  border: 2px black solid;
+  border-radius: 20px;
+}
+
+body {
+  background-color: grey;
+}
+
+#chat-message {
+  width: 25%;
+  height: 20px;
+}
+</style>

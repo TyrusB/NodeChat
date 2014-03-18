@@ -6,7 +6,7 @@ var mime = require('mime');
 
 var file = new static.Server('./public');
 
-http.createServer(function (request, response) {
+var server = http.createServer(function (request, response) {
   request.addListener('end', function() {
     file.serve(request, response, function(e, res) {
       if (e && (e.status === 404)) {
@@ -15,5 +15,7 @@ http.createServer(function (request, response) {
     });
   }).resume();
 }).listen(8080);
+
+require('./lib/chat_server').createChat(server);
 
 console.log("server running at localhost:8080");
