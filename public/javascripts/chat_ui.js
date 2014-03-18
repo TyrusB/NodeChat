@@ -1,5 +1,5 @@
 function getMessage() {
-  $chatBox = $('#chat-message');
+  var $chatBox = $('#chat-message');
 
   var text = $chatBox.val();
   // $chatBox.val("");
@@ -12,9 +12,22 @@ function sendMessage(chatObj, message) {
 }
 
 function displayMessage(message) {
-  $el = $('<li></li>');
+  var $el = $('<li></li>');
   $el.text(message);
   $('#message-display').prepend($el);
+}
+
+function displayUsers(nicknames) {
+  $('#users').empty();
+  nicknames.forEach(function(nickname) {
+    var $el = $('<li></li>');
+    $('#users').append($el.text(nickname));
+  });
+}
+
+function addUser(nickname) {
+  var $el = $('<li></li>')
+  $('#users').append($el.text(nickname));
 }
 
 
@@ -32,6 +45,14 @@ $(document).ready(function() {
 
   socket.on('server_message', function(message) {
     displayMessage(message.text);
+  });
+
+  socket.on('user_list', function(nicknames) {
+    displayUsers(nicknames.nicknames);
+  });
+
+  socket.on('add_user', function(nickname) {
+    addUser(nickname.nickname);
   });
 
 

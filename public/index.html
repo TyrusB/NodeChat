@@ -8,12 +8,13 @@
     <script src="./javascripts/chat_ui.js"></script>
   </head>
   <body>
-    <h1>Chat App</h1>
+    <h1 id='title'>Chat App</h1>
     <br>
-    <div id='chat-container'>
-      <ul id='message-display'></ul>
-    </div>
-    <br>
+      <div id='chat-container'>
+        <ul id='message-display'></ul>
+      </div>
+      <ul id='users'></ul>
+
     <form id='chat-form'>
       <label>Type message:
         <input type='text' id='chat-message'>
@@ -29,15 +30,42 @@
   overflow-y: scroll;
   background-color:white;
   border: 2px black solid;
-  border-radius: 20px;
+  border-radius: 5px;
+  float: left;
+}
+
+#users {
+  margin: 0px;
+  margin-left: 30px;
+  width: 100px;
+  height: 200px;
+  float: left;
+  background-color: white;
+  overflow-y:scroll;
+
+}
+
+#chat-form {
+  margin-top: 30px;
+  width: 500px;
 }
 
 body {
   background-color: grey;
+  font-family: helvetica;
+}
+
+ul {
+  list-style-type: none;
 }
 
 #chat-message {
-  width: 25%;
+  margin-top: 30px;
+  width: 300px;
   height: 20px;
+}
+
+#title {
+
 }
 </style>
