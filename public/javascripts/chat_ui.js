@@ -28,6 +28,23 @@ function displayUsers(nicknames) {
 function addUser(nickname) {
   var $el = $('<li></li>')
   $('#users').append($el.text(nickname));
+  var $messageEl = $('<li></li>');
+  $('#message-display').prepend($messageEl.html("<i>Welcome " + nickname + "!</i>"));
+}
+
+function dropUser(nickname) {
+  var $userEl = $('#users li:contains("' + nickname + '")');
+  $userEl.remove();
+  var $messageEl = $('<li></li>');
+  $('#message-display').prepend($messageEl.html("<i>" + nickname + " has left the room!</i>"));
+}
+
+function changeNickname(oldNick, newNick) {
+  var $userEl = $('#users li:contains("' + oldNick + '")');
+  $userEl.text(newNick);
+  var $messageEl = $('<li></li>');
+  $('#message-display').prepend($messageEl.html("<i>" + oldNick + " is now " + newNick + "</i>"));
+
 }
 
 
@@ -43,16 +60,24 @@ $(document).ready(function() {
     $('#chat-message').val("");
   });
 
-  socket.on('server_message', function(message) {
-    displayMessage(message.text);
+  socket.on('server_message', function(response) {
+    displayMessage(response.text);
   });
 
-  socket.on('user_list', function(nicknames) {
-    displayUsers(nicknames.nicknames);
+  socket.on('user_list', function(response) {
+    displayUsers(response.nicknames);
   });
 
-  socket.on('add_user', function(nickname) {
-    addUser(nickname.nickname);
+  socket.on('add_user', function(response) {
+    addUser(response.nickname);
+  });
+
+  socket.on('drop_user', function(response) {
+    dropUser(response.nickname);
+  });
+
+  socket.on('change_nickname', function(response) {
+    changeNickname(response.oldNick, response.newNick)
   });
 
 

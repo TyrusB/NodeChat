@@ -8,33 +8,87 @@
     <script src="./javascripts/chat_ui.js"></script>
   </head>
   <body>
-    <h1 id='title'>Chat App</h1>
+    <div id='title-container'>
+      <h1 id='title'>Chat App</h1>
+    </div>
     <br>
       <div id='chat-container'>
         <ul id='message-display'></ul>
       </div>
       <ul id='users'></ul>
+      <div id='profile-container'></div>
 
     <form id='chat-form'>
-      <label>Type message:
+      <label><b>Type message:</b>
         <input type='text' id='chat-message'>
       </label>
     </form>
   </body>
 </html>
 
+<script>
+
+function profileBuilder(userName) {
+  var $profile = $('<div class="profile-box"></div>');
+  return $profile.html('<h2>Profile</h2>\n<h3>' + userName + ' </h3>\n<button class="close">Close</button>');
+}
+
+$(function() {
+  $('#users').on("mouseenter", "li", function() {
+    $(this).toggleClass('highlighted');
+  })
+
+  $('#users').on("mouseleave", "li", function() {
+    $(this).toggleClass('highlighted');
+  })
+
+  $('#users').on("click", "li", function() {
+    var userName = $(this).text();
+    $profile = profileBuilder(userName)
+
+    $('#profile-container').append($profile);
+
+    $('.profile-box').on("click", ".close", function() {
+      $('.profile-box').remove();
+    })
+  })
+
+
+
+})
+
+</script>
+
 <style>
+
+.profile-box {
+  background-color: white;
+  border: 3px black solid;
+  border-radius: 10px;
+  width: 150px;
+  height: 200px;
+  float: left;
+  margin-left: 30px;
+  text-align: center;
+}
+
 #chat-container {
   width: 50%;
   height: 200px;
   overflow-y: scroll;
   background-color:white;
-  border: 2px black solid;
+  border: 4px black solid;
   border-radius: 5px;
   float: left;
 }
 
+.highlighted {
+  background-color: yellow;
+}
+
 #users {
+  border: 4px solid black;
+  border-radius: 5px;
   margin: 0px;
   margin-left: 30px;
   width: 100px;
@@ -50,22 +104,37 @@
   width: 500px;
 }
 
+#title-container {
+  background-color: white;
+  width: 200px;
+  height: 75px;
+  border: 4px solid black;
+  border-radius: 20px;
+}
+
 body {
-  background-color: grey;
+  background-color: lightblue;
   font-family: helvetica;
 }
 
 ul {
   list-style-type: none;
+  padding-left: 20px;
+}
+
+#message-display li {
+  margin: 8px;
 }
 
 #chat-message {
   margin-top: 30px;
   width: 300px;
   height: 20px;
+  border: 4px black solid;
+  border-radius: 5px;
 }
 
 #title {
-
+  margin: 20px;
 }
 </style>

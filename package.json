@@ -6,6 +6,7 @@
   "dependencies": {
     "socket.io":"~0.9.6",
     "mime": "~1.2.7",
-    "node-static": ""
+    "node-static": "",
+    "lodash": ""
   }
 }
